@@ -5,14 +5,21 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <functional>
 
 using std::cin;
 using std::cout;
 using std::endl;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::vector;
+using std::hash;
 
-class HashTable
+class Container
 {
-	struct hash
+	struct HashTable
 	{
 	private:
 		string ID;
@@ -23,9 +30,9 @@ class HashTable
 		vector<string> RHISTH;
 		vector<string> LHISTH;
 	public:
-		hash *ptr;
+		
 	};
 };
 
-HashTable
+
 #endif
