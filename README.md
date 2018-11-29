@@ -1,3 +1,3 @@
-Chance McCormick, Carlton, James
-Project 2
+#Project 2
+Chance McCormick, Carlton Wilcox, James  Schuchardt
 Binary Search Tree/ Hash Table
