@@ -1,7 +1,8 @@
-//Chance McCormick, Carlton, James
-//COSC 2030 
-//Project 2-Binary search tree and hash table
-//11/27/2018
+//Chance McCormick, Carlton Wilcox, James Schuchardt
+//COSC 2030
+//Project 2 
+//11/28/2018
+
 #ifndef _BST_H_
 #define _BST_H_
 
@@ -13,37 +14,39 @@
 using std::cin;
 using std::cout;
 using std::endl;
-
-/*
-	void preorder(struct Node<T> *root)
-	{
-		preorder(root->left);
-		preorder(root->right);
-
-	}
-
-}*/
+using std::string;
+using std::vector;
 
 class BinSearchTree
 {
 private:
 	struct node
 	{
-		int key;
-		node *left;
-		node *right;
+		//The node inside the binary tree
+		string ID;
+		string Parent_ID;
+		string Raw_Event;
+		string RHASH;
+		string LHASH;
+		vector<string> RHISTH;
+		vector<string> LHISTH;
+		//pointers to help us out
+		node* left;
+		node* right;
+		node* parent;
 
 	};
+	//these pointers are what we use in the cpp to save our lives.
 	node *root;
-	node *createLeaf(int key);
-	void insertHelp(int key, node* Ptr);
+	node *self;
 
 public:
-	int count=0;
-	int base = 2;
-	BinSearchTree();	//constructor prototype
-	void addLeaf(int key);
-
+	//sets root and self to null
+	BinSearchTree();
+	//creates node
+	void createNode();
+	//creates and organizes the details when making a new node
+	void details();
 
 };
 
