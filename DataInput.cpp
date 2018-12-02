@@ -23,6 +23,7 @@ int main()
 	Tester.createNode();
 	//Inputs the second node in the tree (this shoud end up being the left or right of the one above with null being produced on the other one.)
 	Tester.createNode();
+	Tester.createNode();
 	system("pause");
 	return 2;
 }

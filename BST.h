@@ -39,6 +39,7 @@ private:
 	//these pointers are what we use in the cpp to save our lives.
 	node *root;
 	node *self;
+	node *parental;
 
 public:
 	//sets root and self to null
