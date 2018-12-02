@@ -31,6 +31,13 @@ BinSearchTree::BinSearchTree()
 	self = NULL;
 }
 
+
+ BinSearchTree::node* BinSearchTree::RootNode()
+{
+	 return root;
+}
+
+
 //Creates the next Node in the BST, however, if they tree is empty it will create the first node.
 void BinSearchTree::createNode()
 {
@@ -134,6 +141,7 @@ void BinSearchTree::details()
 			parental->LHASH = "NULL";
 			parental->RHASH = self->ID;
 			Righty.push_back(parental->RHASH);
+			(self->parent)->right = self;
 		}
 		else
 		{
@@ -141,6 +149,7 @@ void BinSearchTree::details()
 				parental->RHASH = "NULL";
 				parental->LHASH = self->ID;
 				Lefty.push_back(parental->LHASH);
+				(self->parent)->left = self;
 		}
 
 		cout << "Parent LHASH: " << parental->LHASH << endl;
@@ -256,10 +265,58 @@ void BinSearchTree::details()
 
 //////////////////////////////Seperator///////////////////////////////////////
 	}
-	//Things remaining to implement:
-
-	//self->RHASH;
-	//self->LHASH;
-	//self->RHISTH;
-	//self->LHISTH; //vector that stores rawevents
 }
+
+void BinSearchTree::printPreorder(struct node* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+
+	cout << root->ID << " ";
+	printPreorder(root->left);
+	printPreorder(root->right);
+}
+
+
+void BinSearchTree::Update() //Done!
+
+{
+	string in;
+	cout << "Enter the ID of the record you wish to update: ";
+	cin >> in;
+
+	if (self->ID == in)
+	{
+		details();
+	}
+	else
+	{
+		cout << "NOT HERE";
+	}
+
+}
+
+/*void BinSearchTree::Record()
+{
+	string in;
+	cout << "Enter the ID of the record you would like to access: ";
+	cin >> in;
+	HashTableout(in);
+}
+void BinSearchTree::HashTableout(string in)
+{
+
+	cout << "-------------";
+		cout << "ID: "<<self->ID<<"\n";
+		cout << "Parent ID: " <<self->Parent_ID<< "\n";
+		cout << "Raw Event: " <<self->Raw_Event<< "\n";
+		cout << "LHASH: " << "\n";
+		cout << "RHASH: " << "\n";
+		cout << "LHIST: " << "\n";
+		cout << "RHIST: " << "\n"
+	cout << "-------------";
+}*/
+
+

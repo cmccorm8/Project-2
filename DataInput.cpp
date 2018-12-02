@@ -15,15 +15,62 @@ using std::endl;
 using std::string;
 using std::to_string;
 
+
+char input;
 BinSearchTree Tester;
 
 int main()
 {
-	//Inputs the root node
-	Tester.createNode();
-	//Inputs the second node in the tree (this shoud end up being the left or right of the one above with null being produced on the other one.)
-	Tester.createNode();
-	Tester.createNode();
+	bool check = true;
+
+	while (check)
+	{
+		cout << "\nPlease make a selection." << endl;
+
+		cout << "\n1. Add a new Node." << endl;
+		cout << "\n2. See record pertaining to ID." << endl;
+		cout << "\n3. Update the contents of a node." << endl;
+		cout << "\n4. Visualize the tree (ID Vals)." << endl;
+		cout << "\n'E' or 'Exit': To Quit" << endl;
+		cin >> input;
+
+		
+
+		switch (input)
+		{
+		case '1':
+			//Inputs the root node
+			Tester.createNode();
+
+			break;
+
+		case '2':
+			cout << "Please enter the ID of the record you wish to see: ";
+			break;
+		case '3':
+			Tester.Update();
+			break;
+		case '4':
+			Tester.printPreorder(Tester.RootNode());
+		
+			break;
+
+
+		case 'E':
+			check = false;
+
+		}
+	}
+
+
+
 	system("pause");
-	return 2;
+	return 0;
 }
+
+//Things remaining to implement:
+
+//
+//Get printing function to display in a tree like way
+//display record function finished - pretty much done
+//

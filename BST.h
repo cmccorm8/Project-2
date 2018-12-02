@@ -44,11 +44,30 @@ private:
 public:
 	//sets root and self to null
 	BinSearchTree();
+
+	node* RootNode();
 	//creates node
 	void createNode();
 	//creates and organizes the details when making a new node
 	void details();
+	//Function displayLeft taken from Lab 8
+
+	void printPreorder(struct node* root);
+
+	void Update();
+
+	void Record();
+
+	void HashTableout(string in);
+
+
+
+
+
+
 
 };
+
+
 
 #endif
