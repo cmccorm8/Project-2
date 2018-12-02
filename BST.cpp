@@ -186,3 +186,97 @@ void BinSearchTree::details()
 	//self->RHISTH;
 	//self->LHISTH;
 }
+
+void
+BinSearchTree::display(std::ostream& outfile) 
+{
+	std::string prefix;
+	if (self == NULL)
+	{
+		outfile << "-" << std::endl;
+	}
+	else
+	{
+		displayLeft(outfile, self->left, "    ");
+		outfile << "---" << self->ID << std::endl;
+		displayRight(outfile, self->right, "    ");
+	}
+}
+
+void
+BinSearchTree::displayLeft(std::ostream & outfile,
+	node * subtree, std::string prefix)
+{
+	if (subtree == NULL)
+	{
+		outfile << prefix + "/" << std::endl;
+	}
+	else
+	{
+		displayLeft(outfile, subtree->left, prefix + "     ");
+		outfile << prefix + "/---" << subtree->ID << std::endl;
+		displayRight(outfile, subtree->right, prefix + "|    ");
+	}
+}
+
+void
+BinSearchTree::displayRight(std::ostream & outfile,
+	node * subtree, std::string prefix)
+{
+	if (subtree == NULL)
+	{
+		outfile << prefix + "\\" << std::endl;
+	}
+	else
+	{
+		displayLeft(outfile, subtree->left, prefix + "|    ");
+		outfile << prefix + "\\---" << subtree->ID << std::endl;
+		displayRight(outfile, subtree->right, prefix + "     ");
+	}
+}
+
+void BinSearchTree::Update() //Done!
+
+{
+	string in;	
+	cout << "Enter the ID of the record you wish to update: ";
+	cin >> in;
+
+	if (self->ID == in)
+		{
+			details();
+		}
+	else
+	{
+		cout << "NOT HERE";
+	}
+
+}
+
+/*void BinSearchTree::Record()
+{
+	string in;
+	cout << "Enter the ID of the record you would like to access: ";
+	cin >> in;
+	HashTableout(in);
+
+
+}
+
+void BinSearchTree::HashTableout(string in)
+{
+	
+	cout << "-------------";
+		cout << "ID: "<<self->ID<<"\n";
+		cout << "Parent ID: " <<self->Parent_ID<< "\n";
+		cout << "Raw Event: " <<self->Raw_Event<< "\n";
+		cout << "LHASH: " << "\n";
+		cout << "RHASH: " << "\n";
+		cout << "LHIST: " << "\n";
+		cout << "RHIST: " << "\n"
+	cout << "-------------";
+
+
+
+}*/
+

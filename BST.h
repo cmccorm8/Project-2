@@ -48,6 +48,23 @@ public:
 	//creates and organizes the details when making a new node
 	void details();
 
+	//Carlton 12/1/2018
+	void displayLeft(std::ostream & outfile,
+		node * subtree, std::string prefix);
+	void displayRight(std::ostream & outfile,
+		node * subtree, std::string prefix);
+	void display(std::ostream& outfile);
+	
+	void Update();
+
+	void Record();
+
+	void HashTableout(string in);
+
+
+
+
+
 };
 
 #endif
