@@ -10,7 +10,7 @@
 #include <string>
 #include<vector>
 #include<cmath>
- 
+
 using std::cin;
 using std::cout;
 using std::endl;
@@ -39,15 +39,38 @@ private:
 	//these pointers are what we use in the cpp to save our lives.
 	node *root;
 	node *self;
+	node *parental;
 
 public:
 	//sets root and self to null
 	BinSearchTree();
+
+	node* RootNode();
 	//creates node
 	void createNode();
 	//creates and organizes the details when making a new node
 	void details();
+	//Function displayLeft taken from Lab 8
+	
+
+	void printPreorder(struct node* root);
+
+	void Update();
+
+	void Record();
+
+	void HashTableout(string in);
+
+	void Display(struct node *root, int spacing);
+
+
+
+
+
+
 
 };
+
+
 
 #endif
