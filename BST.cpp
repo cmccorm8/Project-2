@@ -1,4 +1,6 @@
-//Chance McCormick, Carlton Wilcox, James Schuchardt
+//FINAL VERSION
+
+//James Schuchardt, Carlton Wilcox, Chance McCormick
 //COSC 2030
 //Project 2 
 //11/28/2018
@@ -10,8 +12,6 @@
 #include <vector>
 #include <cmath>
 #include <functional>
-#include <iomanip>
-#include <bitset>
 
 using std::cin;
 using std::cout;
@@ -31,12 +31,13 @@ BinSearchTree::BinSearchTree()
 {
 	root = NULL;
 	self = NULL;
+	current = NULL;
 }
 
 
-BinSearchTree::node* BinSearchTree::RootNode()
+ BinSearchTree::node* BinSearchTree::RootNode()
 {
-	return root;
+	 return root;
 }
 
 
@@ -48,17 +49,17 @@ void BinSearchTree::createNode()
 	node *n = new node;
 	if (self != NULL)
 	{
-		//in this one the parent gets set to the current node and then changes the self over to the new node. allowing for access the parent node and 
-		//the newest nose. The Left and right I am using for LHASH and RHASH, i just don't know how yet.
-
-		n->parent = self;
-		self = n;
-		parental = n->parent;
-		details();
-		n->right = NULL;
-		n->left = NULL;
-
-
+	//in this one the parent gets set to the current node and then changes the self over to the new node. allowing for access the parent node and 
+	//the newest nose. The Left and right I am using for LHASH and RHASH, i just don't know how yet.
+	
+	
+	self = n;
+	n->parent = parental;
+	details();
+	n->right = NULL; 
+	n->left = NULL;
+	parental = self;
+	
 	}
 	else
 	{
@@ -70,6 +71,7 @@ void BinSearchTree::createNode()
 		n->right = NULL;
 		n->parent = NULL;
 		details();
+		parental = self;
 	}
 
 }
@@ -92,19 +94,17 @@ void BinSearchTree::details()
 		cout << "Please Enter a Raw Event for us to worry about: ";
 		cin >> holder;
 		cout << endl;
-		printf("Event:  %d \n", holder);
+		
 		self->Raw_Event = holder;
 
 		//////////////////////////////////Seperator///////////////////////////////////////
-
+		
 		//Accesses the parent node and gathers its ID to then store in the new node. 
 		self->Parent_ID = (self->parent)->ID;
 		//Combines the Raw_Event and the Parent_ID and then hashes out the self->ID;
 		string storage;
 		storage.append(holder);
 		storage.append((self->Parent_ID));
-		cout << "ParentID: " << self->Parent_ID << endl;
-		cout << "Before New Hash: " << storage << endl;
 		//Hash Code: Hashes it, and then rehashes based on some rules i made up until we have a total of 8 characters 
 		//as currently the hash function being used on prints out only one character before the if&else statements were introduced
 		MakeID = hasher(storage);
@@ -127,17 +127,24 @@ void BinSearchTree::details()
 				MakeID.append(supertemp2);
 			}
 		}
-
-		MakeID = MakeID.substr(0, 8);		
-		cout << "Hashed ID: " << MakeID << endl;
 		
+		MakeID = MakeID.substr(0, 8);
 		self->ID = MakeID;
+
+		//Some words such as dog have issues printing out and will delete the word ID and will display incorrectly when made as the root
+		//However if you create nodes after this, and you call the RootID it will report back the correct ID for said words
+		//This is because we are overloading something like cout in the first line, the issues with using fstream is that it results in not outputing the correct hashes consistently
+
+		cout << "ID: " << self->ID << endl;
+		cout << "ParentID: " << self->Parent_ID << endl;
+		cout << "Raw Event: " << self->Raw_Event << endl;
+		
 
 		/////Left and Right Hash Storage//////
 		self->LHASH = "NULL";
 		self->RHASH = "NULL";
 		////Parents////
-
+		
 
 		if (parental->ID <= self->ID) //if parent ID is less than the new nodes ID then new node goes to the right
 		{
@@ -148,20 +155,20 @@ void BinSearchTree::details()
 		}
 		else
 		{
-
-			parental->RHASH = "NULL";
-			parental->LHASH = self->ID;
-			Lefty.push_back(parental->LHASH);
-			(self->parent)->left = self;
+			
+				parental->RHASH = "NULL";
+				parental->LHASH = self->ID;
+				Lefty.push_back(parental->LHASH);
+				(self->parent)->left = self;
 		}
 
-		printf("Parent LHASH: %d \n", parental->LHASH);
-		printf("Parent RHASH: %d \n", parental->RHASH);
+		cout << "Parent LHASH: " << parental->LHASH << endl;
+		cout << "Parent RHASH: " << parental->RHASH << endl;
 
 		Lefty.push_back(self->LHASH);
 		Righty.push_back(self->RHASH);
 
-
+		
 		cout << "LHISTH: ";
 		for (int i = 0; i < Lefty.size(); i++)
 		{
@@ -189,7 +196,6 @@ void BinSearchTree::details()
 		cout << "Please Enter a Raw Event for us to worry about: ";
 		cin >> holder;
 		cout << endl;
-		cout << "Event: " << holder << endl;
 		self->Raw_Event = holder;
 
 		//////////////////////////////////Seperator///////////////////////////////////////
@@ -204,14 +210,12 @@ void BinSearchTree::details()
 			temp = container[rand() % (sizeof(container))];
 			final.append(temp);
 		}
-		self->Parent_ID = final;
-		printf("ParentID: %d \n", final);
+		root->Parent_ID = final;
 
 		//////////////////////////////////Seperator///////////////////////////////////////
 
 		hashtype.append(holder);
 		hashtype.append(final);
-		cout << "Before Hash: " << hashtype << endl;
 		//Hash Code: Hashes it, and then rehashes based on some rules i made up until we have a total of 8 characters 
 		//as currently the hash function being used on prints out only one character before the if&else statements were introduced
 		MakeID = hasher(hashtype);
@@ -235,27 +239,26 @@ void BinSearchTree::details()
 			}
 		}
 
-
+		
 		MakeID = MakeID.substr(0, 8);
-		//is this even possible?
-		//long double Casting= abs(std::stold(MakeID));
-		//std::bitset<16> Casting(MakeID);
-		printf("Hashed ID: %d \n",  MakeID);
-		/////////////Left and Right Hashes////////////////
 		self->ID = MakeID;
-		//self->ID = Casting;
-		self->LHASH = "NULL";
-		printf("LHASH: %d \n", self->LHASH);
+		cout << "ID: " << self->ID << endl; 
+		cout << "ParentID: " << self->Parent_ID << endl;
+		cout << "Raw Event: " << self->Raw_Event << endl;
+		/////////////Left and Right Hashes////////////////
+		
+		self->LHASH = "NULL"; 
+		cout << "LHASH: " << self->LHASH << endl;
 		self->RHASH = "NULL";
-		printf("RHASH: %d \n", self->RHASH);
+		cout << "RHASH: " << self->RHASH << endl;
 
 		Lefty.push_back(self->LHASH);
 		Righty.push_back(self->RHASH);
 
-		//	parental->LHISTH = Lefty;
-		//	parental->RHISTH = Righty;
-		//	self->LHISTH = Lefty;
-		//	self->RHISTH = Righty;
+	//	parental->LHISTH = Lefty;
+	//	parental->RHISTH = Righty;
+	//	self->LHISTH = Lefty;
+	//	self->RHISTH = Righty;
 
 		cout << "LHISTH: ";
 		for (int i = 0; i < Lefty.size(); i++)
@@ -268,95 +271,23 @@ void BinSearchTree::details()
 			cout << Righty[i] << "  ";
 		}
 		cout << endl;
+	
 
-
-		//////////////////////////////Seperator///////////////////////////////////////
+//////////////////////////////Seperator///////////////////////////////////////
 	}
 }
 
-
 void BinSearchTree::printPreorder(struct node* root)
 {
-	
 	if (root == NULL)
 	{
 		return;
 	}
-	/*if(root !=NULL)
-	{
-		
-		printPreorder(root->left, spacing + 10);
-		if (spacing > 0)
-		{
-			cout << std::setw(spacing) << " ";
-			cout << root->ID << endl;
-			printPreorder(root->right, spacing + 10);
-		}
 
-		
-	}*/
-
-	cout << root->ID << " ";
+	cout << root->ID << "  -->  ";
 	printPreorder(root->left);
 	printPreorder(root->right);
-
 }
-
-/*void BinSearchTree::printPostorder(node* root, int spacing)
-{
-	if (root!= NULL) 
-	{
-		if (root->right)
-		{
-			printPostorder(root->right, spacing + 4);
-		}
-		if (spacing)
-		{
-			std::cout << std::setw(spacing) << ' ';
-		}
-		if (root->right) std::cout << " _____/\n" << std::setw(spacing) << ' ';
-		std::cout << root->ID << "\n ";
-		if (root->left)
-		{
-			std::cout << std::setw(spacing) << ' ' << " \\_____\n";
-			printPostorder(root->left, spacing + 8);
-		}
-	}
-	
-}*/
-/*void BinSearchTree::printPostorder(node* root, int spacing)
-{
-	if (root != NULL)
-	{
-	std::cout << std::setw(spacing) << ' ' << root->ID << "\n ";
-		/*if (spacing > 0)
-		{
-			std::cout << std::setw(spacing) << ' ' << root->ID << "\n ";
-
-		}
-	if (root->left) cout << " _____/\n" << std::setw(spacing) << ' ';
-		if(root->left) printPostorder(root->left, spacing);
-		/*if(root->left)
-		{
-			//spacing + 4;
-			std::cout << std::setw(spacing) << ' ' << root->ID << "\n ";	
-		}
-		//printPostorder(root->left, spacing);
-		if (spacing)
-		{
-			std::cout << std::setw(spacing) << ' ';
-		}
-		
-		//if (root->left) cout << " _____/\n" << std::setw(spacing) << ' ';
-		if (root->right)
-		{
-			std::cout << std::setw(spacing) << ' ' << " \\_____";
-			printPostorder(root->right, spacing + 4);
-		}	
-	}
-}*/
-
-
 
 
 void BinSearchTree::Update() //Done!
@@ -365,15 +296,37 @@ void BinSearchTree::Update() //Done!
 	string in;
 	cout << "Enter the ID of the record you wish to update: ";
 	cin >> in;
-
-	if (self->ID == in)
+	struct node* test;
+	test = self;
+	string rootholder;
+	string currentholder;
+	while (test->ID != in || test->ID != root->ID)
 	{
-		details();
-	}
-	else
+		test = self->parent;
+	
+	};
+
+	if (test == root && test->ID != in)
 	{
 		cout << "NOT HERE";
 	}
+	if (test->ID == in)
+	{
+		if (test->ID == root->ID)
+		{
+			cout << "Enter a new ID for the Root ID: ";
+			cin >> rootholder;
+			root->ID = rootholder;
+			
+		}
+		else
+		{
+			cout << "Enter a new ID for the Root ID: ";
+			cin >> currentholder;
+			current->ID = currentholder;
+		}
+	}
+
 
 }
 
@@ -386,24 +339,29 @@ void BinSearchTree::Record()
 }
 void BinSearchTree::HashTableout(string in)
 {
-
+	struct node* input;
+	input = self;
+	while (input->ID != in)
+	{
+		input = self->parent;
+	};
 	cout << "-------------";
-		cout << "ID: "<<self->ID<<"\n";
-		cout << "Parent ID: " <<self->Parent_ID<< "\n";
-		cout << "Raw Event: " <<self->Raw_Event<< "\n";
-		cout << "LHASH: " << root->LHASH <<"\n";
-		cout << "RHASH: " << root->RHASH << "\n";
-		cout << "LHISTH: ";
-		for (int i = 0; i < Lefty.size(); i++)
-		{
-			cout << Lefty[i] << "  ";
-		}
-		cout << "RHISTH: ";
-		for (int i = 0; i < Righty.size(); i++)
-		{
-			cout << Righty[i] << "  ";
-		}
-		cout << endl;
+	cout << "ID: " << input->ID << "\n";
+	cout << "Parent ID: " << input->Parent_ID << "\n";
+	cout << "Raw Event: " << input->Raw_Event << "\n";
+	cout << "LHASH: " << input->LHASH << "\n";
+	cout << "RHASH: " << input->RHASH << "\n";
+	cout << "LHISTH: ";
+	for (int i = 0; i < Lefty.size(); i++)
+	{
+		cout << Lefty[i] << "";
+	}
+	cout << "RHISTH: ";
+	for (int i = 0; i < Righty.size(); i++)
+	{
+		cout << Righty[i] << "";
+	}
+	cout << endl;
 	cout << "-------------";
 }
 

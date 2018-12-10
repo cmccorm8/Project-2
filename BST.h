@@ -1,4 +1,6 @@
-//Chance McCormick, Carlton Wilcox, James Schuchardt
+//FINAL VERSION
+
+//James Schuchardt,Carlton Wilcox, Chance McCormick
 //COSC 2030
 //Project 2 
 //11/28/2018
@@ -10,7 +12,7 @@
 #include <string>
 #include<vector>
 #include<cmath>
-
+ 
 using std::cin;
 using std::cout;
 using std::endl;
@@ -39,6 +41,7 @@ private:
 	//these pointers are what we use in the cpp to save our lives.
 	node *root;
 	node *self;
+	node *current;
 	node *parental;
 
 public:
@@ -51,7 +54,6 @@ public:
 	//creates and organizes the details when making a new node
 	void details();
 	//Function displayLeft taken from Lab 8
-	
 
 	void printPreorder(struct node* root);
 
@@ -60,8 +62,6 @@ public:
 	void Record();
 
 	void HashTableout(string in);
-
-	void Display(struct node *root, int spacing);
 
 
 

@@ -1,4 +1,6 @@
-//Chance McCormick, Carlton Wilcox, James Schuchardt
+//FINAL VERSION
+
+//James Schuchardt, Carlton Wilcox, Chance McCormick
 //COSC 2030
 //Project 2 
 //11/28/2018
@@ -18,7 +20,6 @@ using std::to_string;
 
 char input;
 BinSearchTree Tester;
-int spacing = 0;
 
 int main()
 {
@@ -35,7 +36,7 @@ int main()
 		cout << "\n'E' or 'Exit': To Quit" << endl;
 		cin >> input;
 
-
+		
 
 		switch (input)
 		{
@@ -46,21 +47,17 @@ int main()
 			break;
 
 		case '2':
-			cout << "Please enter the ID of the record you wish to see: ";
 			Tester.Record();
 			break;
 		case '3':
 			Tester.Update();
 			break;
 		case '4':
-			//Tester.printPreorder(Tester.RootNode(), spacing);
 			Tester.printPreorder(Tester.RootNode());
 			break;
 
 
 		case 'E':
-			check = false;
-		default:
 			check = false;
 
 		}
